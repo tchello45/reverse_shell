@@ -14,7 +14,6 @@ section .data
 
 section .bss
     socket_fd resq 1
-    response_buffer resb 1024
 
 section .text
     global _start
