@@ -12,6 +12,7 @@ section .data
 
 section .bss
     socket_fd resq 1
+    response_buffer resb 1024
 
 section .text
     global _start
@@ -35,6 +36,12 @@ _start:
     mov rdi, [socket_fd]
     mov rsi, msg
     mov rdx, msg_len
+    syscall
+
+    mov rax, 0
+    mov rdi, [socket_fd]
+    mov rsi, response_buffer
+    mov rdx, 1024
     syscall
 
     mov rax, 60
