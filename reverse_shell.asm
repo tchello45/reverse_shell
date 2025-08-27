@@ -44,6 +44,24 @@ _start:
     mov rdx, 1024
     syscall
 
+    mov r10, rax
+
+    mov rcx, rax
+    mov rdi, response_buffer
+    mov al, 0xa 
+
+    repne scasb
+
+    dec rdi
+    mov byte [rdi], 0 
+
+
+    mov rax, 1
+    mov rdi, 1
+    mov rsi, response_buffer
+    mov rdx, r10
+    syscall
+
     mov rax, 60
     mov rdi, 0
     syscall
