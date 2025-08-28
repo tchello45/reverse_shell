@@ -4,7 +4,7 @@ The goal of this project is to create a simple reverse shell using **NASM** (Net
 
 Our `reverse_shell.asm` will connect to a remote listener, which can be set up using a command like `nc -lvnp 8080` listening on port 8080.
 
-The reverse shell consists of five key syscalls.
+The reverse shell consists of four key syscalls.
 
 ---
 
@@ -16,7 +16,6 @@ The reverse shell consists of five key syscalls.
 | `sys_connect` | Connect to a remote server (our netcat listener) |       42       |
 | `sys_dup2`    | Duplicate file descriptors                       |       33       |
 | `sys_execve`  | Execute a program                                |       59       |
-| `sys_exit`    | Exit the program                                 |       60       |
 
 We use the `sys_socket` syscall to create a socket file descriptor. This file descriptor will be used to establish a connection to the attacker's machine. Messages can be read from and sent to the attacker via this file descriptor.
 
