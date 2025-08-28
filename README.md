@@ -34,11 +34,14 @@ The reverse shell consists of four key syscalls.
 
 | Syscall Name  | Purpose                                          | Syscall Number |
 | :------------ | :----------------------------------------------- | :------------: |
-| `sys_mmap`    | Memory mapping                                   |       9      |
+| `sys_fork`    | Create a fork of the original process            |       57       |
+| `sys_mmap`    | Memory mapping                                   |       9        |
 | `sys_socket`  | Create a socket                                  |       41       |
 | `sys_connect` | Connect to a remote server (our netcat listener) |       42       |
 | `sys_dup2`    | Duplicate file descriptors                       |       33       |
 | `sys_execve`  | Execute a program                                |       59       |
+
+We use the `sys_fork` syscall to create a child process. This allows us to run the reverse shell in the background while still maintaining control of the original process. In our example we will terminate the original process after forking.
 
 We use the `sys_mmap` syscall to create a memory region that will hold a buffer for our socket file descriptor.
 

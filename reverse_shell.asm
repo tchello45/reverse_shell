@@ -5,6 +5,12 @@ _start:
     jmp get_vars
 
 main:
+    mov rax, 57
+    syscall
+
+    cmp rax, 0
+    jne exit
+
     pop rbp
 
     mov rax, 9
@@ -69,4 +75,7 @@ get_vars:
 
     shell db "/bin/sh", 0
     
-    
+exit:
+    mov rax, 60
+    mov rdi, 0
+    syscall
