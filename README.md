@@ -4,6 +4,28 @@ The goal of this project is to create a simple reverse shell using **NASM** (Net
 
 Our `reverse_shell.asm` will connect to a remote listener, which can be set up using a command like `nc -lvnp 8080` listening on port 8080.
 
+## Compile and run
+
+To compile the `reverse_shell.asm` file, you can use the following command:
+
+```bash
+nasm -f elf64 reverse_shell.asm -o reverse_shell.o
+```
+
+Then, link the object file to create the final executable:
+
+```bash
+ld reverse_shell.o -o reverse_shell
+```
+
+Finally, run the reverse shell:
+
+```bash
+./reverse_shell
+```
+
+## Explanation
+
 The reverse shell consists of four key syscalls.
 
 ---
