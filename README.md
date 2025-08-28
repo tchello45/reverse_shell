@@ -1,4 +1,4 @@
-# A reverse shell in NASM for Linux
+# A position independent reverse shell in NASM for Linux
 
 The goal of this project is to create a simple reverse shell using **NASM** (Netwide Assembler) for Linux systems. A reverse shell is a type of shell where the target machine opens a connection to an attacking machine, allowing the attacker to execute commands on the target system.
 
@@ -34,10 +34,13 @@ The reverse shell consists of four key syscalls.
 
 | Syscall Name  | Purpose                                          | Syscall Number |
 | :------------ | :----------------------------------------------- | :------------: |
+| `sys_mmap`    | Memory mapping                                   |       9      |
 | `sys_socket`  | Create a socket                                  |       41       |
 | `sys_connect` | Connect to a remote server (our netcat listener) |       42       |
 | `sys_dup2`    | Duplicate file descriptors                       |       33       |
 | `sys_execve`  | Execute a program                                |       59       |
+
+We use the `sys_mmap` syscall to create a memory region that will hold a buffer for our socket file descriptor.
 
 We use the `sys_socket` syscall to create a socket file descriptor. This file descriptor will be used to establish a connection to the attacker's machine. Messages can be read from and sent to the attacker via this file descriptor.
 
